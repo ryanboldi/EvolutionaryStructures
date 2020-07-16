@@ -13,7 +13,7 @@ public class ProceduralGrid : MonoBehaviour
     //grid settings
     public float cellSize = 1;
     public Vector3 gridOffset;
-    int gridsize;
+    public int gridSize;
 
     void Awake()
     {
@@ -27,25 +27,43 @@ public class ProceduralGrid : MonoBehaviour
         UpdateMesh();
     }
 
+    //discrete because the quads don't share vertices
     void MakeDiscreteProceduralGrid()
     {
         //set array sizes
-        vertices = new Vector3[4];
-        triangles = new int[6];
+        vertices = new Vector3[gridSize * gridSize * 4];
+        triangles = new int[gridSize * gridSize * 6];
+
+        //set tracker integers
+        int v = 0;
+        int t = 0;
 
         //set vertex offset -> we want quad in centered on x,y
         float vertexOffset = cellSize * 0.5f;
 
-        //populate the vertices and triangles arrrays
-        vertices[0] = new Vector3(-vertexOffset, 0, -vertexOffset) + gridOffset;
-        vertices[1] = new Vector3(-vertexOffset, 0,  vertexOffset) + gridOffset;
-        vertices[2] = new Vector3( vertexOffset, 0, -vertexOffset) + gridOffset;
-        vertices[3] = new Vector3( vertexOffset, 0,  vertexOffset) + gridOffset;
+        for (int x = 0; x < gridSize; x++)
+        {
+            for (int y = 0; y < gridSize; y++)
+            {
+                //local offset of each cell in the grid
+                Vector3 cellOffset = new Vector3(x * cellSize, 0, y * cellSize);
 
-        triangles[0] = 0;
-        triangles[1] = triangles[4] = 1;
-        triangles[2] = triangles[3] = 2;
-        triangles[5] = 3;
+                //populate the vertices and triangles arrrays
+                vertices[v] = new Vector3(-vertexOffset, 0, -vertexOffset) + cellOffset + gridOffset;
+                vertices[v + 1] = new Vector3(-vertexOffset, 0, vertexOffset) + cellOffset + gridOffset;
+                vertices[v + 2] = new Vector3(vertexOffset, 0, -vertexOffset) + cellOffset + gridOffset;
+                vertices[v + 3] = new Vector3(vertexOffset, 0, vertexOffset) + cellOffset + gridOffset;
+
+                triangles[t] = v;
+                triangles[t + 1] = triangles[t + 4] = v + 1;
+                triangles[t + 2] = triangles[t + 3] = v + 2;
+                triangles[t + 5] = v + 3;
+
+                //track how many vertices we have had so we can index it properly
+                v += 4;
+                t += 6;
+            }
+        }
     }
 
     void UpdateMesh()

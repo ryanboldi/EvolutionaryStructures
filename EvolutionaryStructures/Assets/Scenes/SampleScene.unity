@@ -357,6 +357,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cellSize: 1
   gridOffset: {x: 0, y: 0, z: 0}
+  gridSize: 3
 --- !u!23 &837429235
 MeshRenderer:
   m_ObjectHideFlags: 0
