@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(MeshFilter), typeof(MeshRenderer))]
-public class ProceduralGrid : MonoBehaviour
-{
+public class ProceduralGrid : MonoBehaviour {
 
     Mesh mesh;
     Vector3[] vertices;
@@ -15,21 +14,18 @@ public class ProceduralGrid : MonoBehaviour
     public Vector3 gridOffset;
     public int gridSize;
 
-    void Awake()
-    {
+    void Awake() {
         mesh = GetComponent<MeshFilter>().mesh;
 
     }
 
-    void Start()
-    {
-        MakeDiscreteProceduralGrid();
+    void Start() {
+        MakeContiguousProceduralGrid();
         UpdateMesh();
     }
 
     //discrete because the quads don't share vertices
-    void MakeDiscreteProceduralGrid()
-    {
+    void MakeDiscreteProceduralGrid() {
         //set array sizes
         vertices = new Vector3[gridSize * gridSize * 4];
         triangles = new int[gridSize * gridSize * 6];
@@ -41,10 +37,8 @@ public class ProceduralGrid : MonoBehaviour
         //set vertex offset -> we want quad in centered on x,y
         float vertexOffset = cellSize * 0.5f;
 
-        for (int x = 0; x < gridSize; x++)
-        {
-            for (int y = 0; y < gridSize; y++)
-            {
+        for (int x = 0; x < gridSize; x++) {
+            for (int y = 0; y < gridSize; y++) {
                 //local offset of each cell in the grid
                 Vector3 cellOffset = new Vector3(x * cellSize, 0, y * cellSize);
 
@@ -66,8 +60,34 @@ public class ProceduralGrid : MonoBehaviour
         }
     }
 
-    void UpdateMesh()
-    {
+    void MakeContiguousProceduralGrid() {
+        //set array sizes
+        vertices = new Vector3[(gridSize + 1) * (gridSize + 1)];
+        triangles = new int[gridSize * gridSize * 6];
+
+        //set tracker integers
+        int v = 0;
+        int t = 0;
+
+        //set vertex offset -> we want quad in centered on x,y
+        float vertexOffset = cellSize * 0.5f;
+
+        for (int x = 0; x < gridSize; x++) {
+            for (int y = 0; y < gridSize; y++) {
+                vertices[v] = new Vector3((x * cellSize) - vertexOffset, 0, (y * cellSize) - vertexOffset);
+
+            }
+        }
+
+        for (int x = 0; x < gridSize; x++) {
+            for (int y = 0; y < gridSize; y++) {
+                vertices[v] = new Vector3((x * cellSize) - vertexOffset, 0, (y * cellSize) - vertexOffset);
+
+            }
+        }
+    }
+
+    void UpdateMesh() {
         mesh.Clear();
         mesh.vertices = vertices;
         mesh.triangles = triangles;
