@@ -72,18 +72,29 @@ public class ProceduralGrid : MonoBehaviour {
         //set vertex offset -> we want quad in centered on x,y
         float vertexOffset = cellSize * 0.5f;
 
-        for (int x = 0; x < gridSize; x++) {
-            for (int y = 0; y < gridSize; y++) {
-                vertices[v] = new Vector3((x * cellSize) - vertexOffset, 0, (y * cellSize) - vertexOffset);
-
+        //create vertex grid
+        for (int x = 0; x <= gridSize; x++) {
+            for (int y = 0; y <= gridSize; y++) {
+                vertices[v] = new Vector3((x * cellSize) - vertexOffset, (x + y) * 0.2f, (y * cellSize) - vertexOffset);
+                v++;
             }
         }
 
+        //reset vertex tracker
+        v = 0;
+
+        //set each cell's triangles
         for (int x = 0; x < gridSize; x++) {
             for (int y = 0; y < gridSize; y++) {
-                vertices[v] = new Vector3((x * cellSize) - vertexOffset, 0, (y * cellSize) - vertexOffset);
+                triangles[t] = v;
+                triangles[t + 1] = triangles[t + 4] = v + 1;
+                triangles[t + 2] = triangles[t + 3] = v + (gridSize + 1);
+                triangles[t + 5] = v + (gridSize + 1) + 1;
 
+                v += 1;
+                t += 6;
             }
+            v++;
         }
     }
 
