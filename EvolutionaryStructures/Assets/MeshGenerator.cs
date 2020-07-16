@@ -23,7 +23,7 @@ public class MeshGenerator : MonoBehaviour
 
         obj.AddComponent<MeshFilter>();
         obj.GetComponent<MeshFilter>().mesh = mesh;
-        obj.AddComponent<Rigidbody>();
+        //obj.AddComponent<Rigidbody>();
         obj.AddComponent<MeshCollider>();
         obj.AddComponent<MeshRenderer>();
 
@@ -31,8 +31,8 @@ public class MeshGenerator : MonoBehaviour
         obj.GetComponent<MeshCollider>().convex = true;
         obj.GetComponent<MeshRenderer>().material = material;
 
-        CreateShape();
-        UpdateMesh();
+        MakeMeshData();
+        CreateMesh();
 
         //obj.transform.Translate(0, startY, 0);
 
