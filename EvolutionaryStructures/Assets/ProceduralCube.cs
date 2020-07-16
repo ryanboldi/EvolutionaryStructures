@@ -22,7 +22,7 @@ public class ProceduralCube : MonoBehaviour {
     }
 
     void Start() {
-        MakeCube(adjScale);
+        MakeCube(adjScale, new Vector3((float)posX * scale, (float)posY * scale, (float)posZ * scale));
         UpdateMesh();
     }
 
@@ -34,17 +34,17 @@ public class ProceduralCube : MonoBehaviour {
         mesh.RecalculateNormals();
     }
 
-    void MakeCube(float cubeScale) {
+    void MakeCube(float cubeScale, Vector3 cubePos) {
         vertices = new List<Vector3>();
         triangles = new List<int>();
 
         for (int i = 0; i < 6; i++) {
-            MakeFace(i, cubeScale);
+            MakeFace(i, cubeScale, cubePos);
         }
     }
 
-    void MakeFace(int dir, float faceScale) {
-        vertices.AddRange(CubeMeshData.faceVertices(dir, faceScale));
+    void MakeFace(int dir, float faceScale, Vector3 facePos) {
+        vertices.AddRange(CubeMeshData.faceVertices(dir, faceScale, facePos));
         int vCount = vertices.Count;
 
         triangles.Add(vCount - 4);
