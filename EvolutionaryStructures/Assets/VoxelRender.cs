@@ -6,6 +6,8 @@ using UnityEngine;
 [RequireComponent(typeof(MeshFilter), typeof(MeshRenderer))]
 public class VoxelRender : MonoBehaviour {
     Mesh mesh;
+
+
     List<Vector3> vertices;
     List<int> triangles;
 
@@ -21,6 +23,8 @@ public class VoxelRender : MonoBehaviour {
     void Start() {
         GenerateVoxelMesh(new VoxelData());
         UpdateMesh();
+        MeshCollider meshCol = GetComponent<MeshCollider>();
+        meshCol.sharedMesh = mesh;
     }
 
     void GenerateVoxelMesh(VoxelData data) {
