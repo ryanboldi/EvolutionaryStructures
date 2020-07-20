@@ -33,7 +33,7 @@ public class VoxelRender : MonoBehaviour {
                     if (data.GetCell(x, y, z) == 0) {
                         continue;
                     }
-                    MakeCube(adjScale, new Vector3((float)x * scale, (float)y * scale, (float)z * scale));
+                    MakeCube(adjScale, new Vector3((float)x * scale, (float)y * scale, (float)z * scale), x, y, z, data);
                 }
             }
         }
@@ -47,13 +47,16 @@ public class VoxelRender : MonoBehaviour {
         mesh.RecalculateNormals();
     }
 
-    void MakeCube(float cubeScale, Vector3 cubePos) {
+    void MakeCube(float cubeScale, Vector3 cubePos, int x, int y, int z, VoxelData data) {
         for (int i = 0; i < 6; i++) {
-            MakeFace(i, cubeScale, cubePos);
+            //only make face if neighbour is open space
+            if (data.GetNeighbour(x, y, z, (Direction)i) == 0) {
+                MakeFace((Direction)i, cubeScale, cubePos);
+            }
         }
     }
 
-    void MakeFace(int dir, float faceScale, Vector3 facePos) {
+    void MakeFace(Direction dir, float faceScale, Vector3 facePos) {
         vertices.AddRange(CubeMeshData.faceVertices(dir, faceScale, facePos));
         int vCount = vertices.Count;
 
