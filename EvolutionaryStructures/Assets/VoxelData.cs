@@ -3,9 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class VoxelData {
+    int[,,] data;
+    public VoxelData() {
+        data = new int[20, 20, 20];
 
-    //this will be made by the nn
-    int[,,] data = new int[,,] { { { 1, 1, 1 }, { 0, 1, 1 }, { 1, 1, 0 } }, { { 1, 0, 0 }, { 0, 0, 0 }, { 0, 1, 0 } }, { { 0, 1, 0 }, { 0, 1, 0 }, { 0, 1, 0 } } };
+        for (int i = 0; i < 20; i++) {
+            for (int j = 0; j < 20; j++) {
+                for (int k = 0; k < 20; k++) {
+                    data[i, j, k] = Random.Range(0, 2);
+                }
+            }
+        }
+    }
 
     public int Width {
         get { return data.GetLength(0); }
