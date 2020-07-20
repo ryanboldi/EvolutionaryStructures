@@ -155,7 +155,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bc1fb576a4b32641a2642c3bf551b05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scale: 0.15
+  scale: 1
 --- !u!33 &4032891
 MeshFilter:
   m_ObjectHideFlags: 0

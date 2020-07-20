@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class VoxelData {
     int[,,] data;
+    public int size = 5;
     public VoxelData() {
-        data = new int[20, 20, 20];
+        data = new int[size, size, size];
 
-        for (int i = 0; i < 20; i++) {
-            for (int j = 0; j < 20; j++) {
-                for (int k = 0; k < 20; k++) {
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                for (int k = 0; k < size; k++) {
                     data[i, j, k] = Random.Range(0, 2);
                 }
             }
