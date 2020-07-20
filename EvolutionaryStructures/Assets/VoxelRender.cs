@@ -71,6 +71,9 @@ public class VoxelRender : MonoBehaviour {
         cube.GetComponent<MeshRenderer>().material = mat;
         cube.GetComponent<MeshFilter>().mesh = mesh;
 
+        Rigidbody rb = cube.GetComponent<Rigidbody>();
+        rb.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezePositionZ;
+
         mesh.Clear();
         mesh.vertices = vertices.ToArray();
         mesh.triangles = triangles.ToArray();
