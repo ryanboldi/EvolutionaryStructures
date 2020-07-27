@@ -56,7 +56,7 @@ public class VoxelRender : MonoBehaviour {
             }
         }
 
-        cube.AddComponent<Rigidbody>();
+        //cube.AddComponent<Rigidbody>();
         cube.AddComponent<MeshFilter>();
         cube.AddComponent<MeshRenderer>();
         cube.AddComponent<MeshCollider>();
@@ -72,7 +72,7 @@ public class VoxelRender : MonoBehaviour {
         cube.GetComponent<MeshFilter>().mesh = mesh;
 
         Rigidbody rb = cube.GetComponent<Rigidbody>();
-        rb.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezePositionZ;
+        //rb.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezePositionZ;
 
         mesh.Clear();
         mesh.vertices = vertices.ToArray();
