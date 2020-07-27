@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class VoxelData {
     int[,,] data;
-    public int size = 2;
+    public int size = 5;
     public VoxelData() {
         data = new int[size, size, size];
 
