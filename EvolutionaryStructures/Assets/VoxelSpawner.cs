@@ -7,6 +7,7 @@ using UnityEngine;
 //https://medium.com/@HolographicInterfaces/learn-how-to-implement-neat-ai-in-unity-157168eeae7e
 public class VoxelSpawner : UnitController {
     private IBlackBox box;
+    private bool IsRunning;
 
     // Start is called before the first frame update
     void Start() {
@@ -23,8 +24,10 @@ public class VoxelSpawner : UnitController {
     }
 
     // Update is called once per frame
-    void Update() {
+    void FixedUpdate() {
+        if (IsRunning) {
 
+        }
     }
 
     public override float GetFitness() {

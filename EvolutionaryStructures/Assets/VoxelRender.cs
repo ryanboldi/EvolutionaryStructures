@@ -5,7 +5,6 @@ using UnityEngine;
 public class VoxelRender : MonoBehaviour {
     public Material mat;
 
-
     List<Vector3> vertices;
     List<int> triangles;
 
